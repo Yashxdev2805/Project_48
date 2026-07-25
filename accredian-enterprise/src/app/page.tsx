@@ -12,6 +12,7 @@ import { CATFramework } from "@/components/sections/CATFramework";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FAQ } from "@/components/sections/FAQ";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { ContactCTA } from "@/components/sections/ContactCTA";
 
 export default function Home() {
   return (
@@ -53,6 +54,9 @@ export default function Home() {
 
         {/* Section 11: Testimonials Carousel (#testimonials) */}
         <Testimonials />
+
+        {/* Section 12: Contact & Lead Capture CTA (#contact) */}
+        <ContactCTA />
       </main>
 
       {/* Site Footer Shell */}
