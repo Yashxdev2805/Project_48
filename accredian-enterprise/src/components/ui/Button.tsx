@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 
 export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
   variant?: "primary" | "secondary" | "outline" | "ghost";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
@@ -9,6 +9,7 @@ export interface ButtonProps
   iconPosition?: "left" | "right";
   fullWidth?: boolean;
   href?: string;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const BASE_CLASSES =
@@ -42,6 +43,7 @@ export const Button = memo<ButtonProps>(
     href,
     className = "",
     type = "button",
+    onClick,
     ...props
   }) => {
     const widthClass = fullWidth ? "w-full" : "";
@@ -57,14 +59,14 @@ export const Button = memo<ButtonProps>(
 
     if (href) {
       return (
-        <a href={href} className={combinedClasses}>
+        <a href={href} onClick={onClick} className={combinedClasses}>
           {content}
         </a>
       );
     }
 
     return (
-      <button type={type} className={combinedClasses} {...props}>
+      <button type={type} onClick={onClick} className={combinedClasses} {...props}>
         {content}
       </button>
     );
