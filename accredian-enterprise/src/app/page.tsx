@@ -8,6 +8,10 @@ import { AccredianEdge } from "@/components/sections/AccredianEdge";
 import { DomainExpertise } from "@/components/sections/DomainExpertise";
 import { CourseSegmentation } from "@/components/sections/CourseSegmentation";
 import { WhoShouldJoin } from "@/components/sections/WhoShouldJoin";
+import { CATFramework } from "@/components/sections/CATFramework";
+import { HowItWorks } from "@/components/sections/HowItWorks";
+import { FAQ } from "@/components/sections/FAQ";
+import { Testimonials } from "@/components/sections/Testimonials";
 
 export default function Home() {
   return (
@@ -37,6 +41,18 @@ export default function Home() {
 
         {/* Section 7: Who Should Join */}
         <WhoShouldJoin />
+
+        {/* Section 8: CAT Framework (#cat) */}
+        <CATFramework />
+
+        {/* Section 9: How It Works (#how-it-works) */}
+        <HowItWorks />
+
+        {/* Section 10: FAQ Accordion (#faqs) */}
+        <FAQ />
+
+        {/* Section 11: Testimonials Carousel (#testimonials) */}
+        <Testimonials />
       </main>
 
       {/* Site Footer Shell */}
