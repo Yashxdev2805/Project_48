@@ -27,13 +27,23 @@ Recreate the Accredian Enterprise landing page with clean architecture, reusable
 
 - [x] **Navigation & Shell**
   - Sticky header with `backdrop-blur-md` and shadow transition on scroll.
-  - Custom `useScrollSpy` hook for dynamic active link highlighting as the user scrolls.
-  - Responsive mobile drawer navigation with smooth anchor scrolling.
+  - Custom `useScrollSpy` hook with `getBoundingClientRect` for pixel-accurate active link highlighting.
+  - Responsive mobile drawer navigation with body scroll locking and smooth anchor scrolling.
 
 - [x] **API Integration & Bonus Features**
   - **`GET /api/enterprise-data`**: API route serving centralized enterprise data JSON.
   - **`POST /api/leads`**: API route receiving, validating, and storing lead capture submissions.
   - **Interactive Lead Form**: Full client & server-side input validation, error messaging, loading state, and success toast confirmation.
+
+- [x] **Scroll-Triggered Animations**
+  - Custom `useInView` hook using `IntersectionObserver` for efficient scroll detection.
+  - `AnimateOnScroll` wrapper component with 6 animation variants (`fade-up`, `fade-down`, `fade-left`, `fade-right`, `fade`, `zoom`).
+  - Staggered per-card cascade animations (Stats: 120ms, Edge: 100ms, Domains: 80ms delays).
+  - GPU-optimized with `willChange` cleanup after animation completes.
+
+- [x] **Automated API Test Suite**
+  - 11 tests covering `GET /api/enterprise-data` validation, `POST /api/leads` input rejection (empty body, bad email, short phone, missing company), success flow, and lead count verification.
+  - Run with `npm test` (requires dev server running).
 
 ---
 
@@ -45,7 +55,8 @@ Recreate the Accredian Enterprise landing page with clean architecture, reusable
 | **TypeScript** | Type Safety | Strict type definitions for data models (`NavLink`, `DomainCard`, `FAQItem`, `LeadPayload`) |
 | **Tailwind CSS v4** | Styling | Utility-first responsive design, custom `@theme` tokens, and hardware-accelerated keyframe animations |
 | **Poppins Font** | Typography | Official font matching `enterprise.accredian.com` loaded via `next/font/google` |
-| **React Hooks & Memo** | State & Perf | `useScrollSpy`, `useState`, `useCallback`, `useMemo`, and `React.memo` optimizations |
+| **React Hooks & Memo** | State & Perf | `useScrollSpy`, `useInView`, `useState`, `useCallback`, `useMemo`, and `React.memo` optimizations |
+| **IntersectionObserver** | Scroll Animations | Zero-dependency scroll-triggered entrance animations via `useInView` hook |
 | **Vercel** | Deployment | Native zero-config deployment platform for Next.js |
 
 ---
@@ -64,10 +75,12 @@ accredian-enterprise/
 │   │   ├── globals.css            # Tailwind directives + GPU hardware keyframes
 │   │   ├── layout.tsx             # Root layout, Poppins font, SEO metadata
 │   │   └── page.tsx               # Main page composing all 13 sections
+│   ├── __tests__/
+│   │   └── api.test.ts            # 11-test API route test suite
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Navbar.tsx         # Sticky header, active scrollspy, mobile drawer
-│   │   │   └── Footer.tsx         # Site footer with navigation & contact info
+│   │   │   ├── Navbar.tsx         # Sticky header, scrollspy, mobile drawer
+│   │   │   └── Footer.tsx         # Site footer with navigation & contact
 │   │   ├── sections/
 │   │   │   ├── Hero.tsx           # Main banner with dashboard graphic
 │   │   │   ├── Stats.tsx          # Track record with animated count-up
@@ -84,18 +97,24 @@ accredian-enterprise/
 │   │   ├── shared/
 │   │   │   └── Container.tsx      # Reusable max-width layout container
 │   │   └── ui/
+│   │       ├── AnimateOnScroll.tsx # Scroll-triggered animation wrapper (6 variants)
 │   │       ├── Button.tsx         # Reusable button primitive
 │   │       ├── Card.tsx           # Reusable card wrapper with hover effects
 │   │       ├── SectionHeading.tsx # Reusable section titles & badges
 │   │       ├── AccordionItem.tsx  # Accessible accordion item
 │   │       └── LeadForm.tsx       # Interactive lead capture form
 │   ├── hooks/
-│   │   └── useScrollSpy.ts        # Throttled scroll position tracker
+│   │   ├── useScrollSpy.ts       # RAF-throttled scroll position tracker
+│   │   └── useInView.ts          # IntersectionObserver hook for scroll animations
 │   ├── lib/
 │   │   ├── data/
-│   │   │   └── enterprise.ts      # Centralized mock data layer
+│   │   │   └── enterprise.ts     # Centralized mock data layer
 │   │   └── types/
 │   │       └── index.ts          # Shared TypeScript interfaces
+├── public/
+│   └── images/                    # Partner logos, hero illustration, avatars
+├── .env.local                     # Environment variables (partner URLs, API paths)
+├── .env.example                   # Template for environment variables
 └── README.md
 ```
 
@@ -119,21 +138,68 @@ accredian-enterprise/
    npm install
    ```
 
-3. **Start Development Server**:
+3. **Set Up Environment Variables**:
+   ```bash
+   cp .env.example .env.local
+   ```
+
+4. **Start Development Server**:
    ```bash
    npm run dev -- -p 8080
    ```
    Open [http://localhost:8080](http://localhost:8080) in your browser.
 
-4. **Build for Production**:
+5. **Run API Tests** (requires dev server running):
+   ```bash
+   npm test
+   ```
+
+6. **Build for Production**:
    ```bash
    npm run build
    ```
 
-5. **Start Production Server**:
+7. **Start Production Server**:
    ```bash
    npm run start -- -p 8080
    ```
+
+---
+
+## 🧪 Automated Test Suite
+
+Run the API route test suite (requires the dev server to be running):
+
+```bash
+npm test
+```
+
+**Test Results (11/11 passing)**:
+```
+🧪 API Route Test Suite
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📡 GET /api/enterprise-data
+  ✅ returns 200 status
+  ✅ returns valid JSON with success: true
+  ✅ contains all required data keys
+  ✅ navLinks is an array with 9 navigation items
+  ✅ stats contains 4 metric items
+
+📡 POST /api/leads (Validation)
+  ✅ rejects empty body with 400
+  ✅ rejects invalid email format
+  ✅ rejects short phone number
+  ✅ rejects missing company name
+
+📡 POST /api/leads (Success Flow)
+  ✅ accepts valid lead and returns 201 with leadId
+
+📡 GET /api/leads (Count Verification)
+  ✅ returns totalLeads >= 1 after submission
+
+🏁 Results: 11 passed, 0 failed, 11 total
+```
 
 ---
 
@@ -154,10 +220,13 @@ Returns the complete data structure of all 13 sections in JSON format.
     "clients": [...],
     "edge": [...],
     "domains": [...],
+    "segmentation": {...},
+    "audience": [...],
     "catFramework": [...],
     "howItWorks": [...],
     "faqs": [...],
-    "testimonials": [...]
+    "testimonials": [...],
+    "contact": {...}
   }
 }
 ```
@@ -187,6 +256,31 @@ Receives, validates, and stores corporate lead capture submissions.
 }
 ```
 
+**Validation Error (400)**:
+```json
+{
+  "success": false,
+  "error": "Invalid email format."
+}
+```
+
+---
+
+## 🎬 Scroll-Triggered Animations
+
+All sections (except Hero, which loads instantly) use `AnimateOnScroll` wrappers powered by the custom `useInView` hook.
+
+| Variant | Effect | Used In |
+|---|---|---|
+| `fade-up` | Fade + slide up 32px | Stats, Edge, Domains, FAQ, How It Works |
+| `fade` | Pure opacity fade | Clients marquee |
+| `zoom` | Fade + scale from 92% | Contact CTA |
+
+**Staggered card animations** create a premium cascade reveal effect:
+- Stats cards: 120ms per-card delay
+- Edge pillars: 100ms per-card delay
+- Domain cards: 80ms per-card delay
+
 ---
 
 ## 🤖 Where AI Helped
@@ -198,8 +292,10 @@ In accordance with submission guidelines, here is a transparent breakdown of how
 | **Website & Bundle Analysis** | AI analyzed the live `enterprise.accredian.com` JS/CSS bundles to map all 13 section components, navigation anchors, typography, and color tokens accurately. |
 | **Architecture & Plan Synthesis** | AI designed the 6-step incremental development plan, merging section accuracy with TypeScript architectural best practices. |
 | **Mock Data Extraction** | AI extracted and structured site content into typed TypeScript data models inside `lib/data/enterprise.ts`. |
-| **Code & Performance Optimization** | AI assisted in implementing GPU hardware acceleration, throttled `requestAnimationFrame` scrollspy hooks, and React state update deduplication. |
-| **Build & Type Auditing** | AI executed build verification tests (`npm run build`) to ensure zero TypeScript or bundler errors. |
+| **Code & Performance Optimization** | AI assisted in implementing GPU hardware acceleration, throttled `requestAnimationFrame` scrollspy hooks, IntersectionObserver scroll animations, and React state update deduplication. |
+| **Scroll Animation System** | AI built the `useInView` hook and `AnimateOnScroll` wrapper with 6 animation variants and staggered card cascade effects. |
+| **API Test Suite** | AI created the 11-test automated API route test suite covering validation, success flows, and data integrity checks. |
+| **Build & Type Auditing** | AI executed build verification tests (`npm run build`) to ensure zero TypeScript or bundler errors across all phases. |
 
 ---
 
@@ -208,9 +304,16 @@ In accordance with submission guidelines, here is a transparent breakdown of how
 1. Push code to GitHub repository:
    ```bash
    git add .
-   git commit -m "feat: complete Phase 6 - API routes, lead form & documentation"
+   git commit -m "feat: final polish — scroll animations, test suite, README update"
    git push origin main
    ```
 2. Import the repository on [Vercel](https://vercel.com/new).
 3. Select `Next.js` framework preset with root directory set to `accredian-enterprise`.
-4. Click **Deploy**!
+4. Add environment variables from `.env.example` to Vercel project settings.
+5. Click **Deploy**!
+
+---
+
+## 📄 License
+
+This project was developed as part of the Accredian Enterprise Internship Assignment.
