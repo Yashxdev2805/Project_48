@@ -35,8 +35,14 @@ export const Navbar = memo(() => {
     };
   }, []);
 
-  // Close mobile drawer on Escape key press
+  // Lock body scroll when mobile drawer is open & handle Escape key
   useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape" && mobileMenuOpen) {
         setMobileMenuOpen(false);
@@ -44,7 +50,10 @@ export const Navbar = memo(() => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, [mobileMenuOpen]);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLElement>, href: string) => {

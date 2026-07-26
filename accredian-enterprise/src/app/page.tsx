@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,53 +15,62 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FAQ } from "@/components/sections/FAQ";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { ContactCTA } from "@/components/sections/ContactCTA";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white">
-      {/* Site Header / Navbar Shell */}
       <Navbar />
 
-      {/* Main Content Body */}
       <main className="flex-1 pt-16 sm:pt-20">
-        {/* Section 1: Hero (#home) */}
+        {/* Hero — instant load, no scroll animation needed */}
         <Hero />
 
-        {/* Section 2: Stats (#stats) */}
-        <Stats />
+        <AnimateOnScroll variant="fade-up">
+          <Stats />
+        </AnimateOnScroll>
 
-        {/* Section 3: Clients (#clients) */}
-        <Clients />
+        <AnimateOnScroll variant="fade" duration={800}>
+          <Clients />
+        </AnimateOnScroll>
 
-        {/* Section 4: Accredian Edge (#edge) */}
-        <AccredianEdge />
+        <AnimateOnScroll variant="fade-up">
+          <AccredianEdge />
+        </AnimateOnScroll>
 
-        {/* Section 5: Domain Expertise (#domains) */}
-        <DomainExpertise />
+        <AnimateOnScroll variant="fade-up" delay={80}>
+          <DomainExpertise />
+        </AnimateOnScroll>
 
-        {/* Section 6: Course Segmentation Matrix */}
-        <CourseSegmentation />
+        <AnimateOnScroll variant="fade-up">
+          <CourseSegmentation />
+        </AnimateOnScroll>
 
-        {/* Section 7: Who Should Join */}
-        <WhoShouldJoin />
+        <AnimateOnScroll variant="fade-up" delay={80}>
+          <WhoShouldJoin />
+        </AnimateOnScroll>
 
-        {/* Section 8: CAT Framework (#cat) */}
-        <CATFramework />
+        <AnimateOnScroll variant="fade-up">
+          <CATFramework />
+        </AnimateOnScroll>
 
-        {/* Section 9: How It Works (#how-it-works) */}
-        <HowItWorks />
+        <AnimateOnScroll variant="fade-up">
+          <HowItWorks />
+        </AnimateOnScroll>
 
-        {/* Section 10: FAQ Accordion (#faqs) */}
-        <FAQ />
+        <AnimateOnScroll variant="fade-up">
+          <FAQ />
+        </AnimateOnScroll>
 
-        {/* Section 11: Testimonials Carousel (#testimonials) */}
-        <Testimonials />
+        <AnimateOnScroll variant="fade-up" delay={80}>
+          <Testimonials />
+        </AnimateOnScroll>
 
-        {/* Section 12: Contact & Lead Capture CTA (#contact) */}
-        <ContactCTA />
+        <AnimateOnScroll variant="zoom" duration={700}>
+          <ContactCTA />
+        </AnimateOnScroll>
       </main>
 
-      {/* Site Footer Shell */}
       <Footer />
     </div>
   );

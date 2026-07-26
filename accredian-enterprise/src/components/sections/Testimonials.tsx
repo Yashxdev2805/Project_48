@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useCallback, memo } from "react";
+import Image from "next/image";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -70,11 +71,23 @@ export const Testimonials = memo(() => {
                   </p>
                 </div>
 
-                {/* Author Credentials */}
+                {/* Author Credentials & Real Avatar Photo */}
                 <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-blue-100 text-universal font-extrabold flex items-center justify-center text-sm flex-shrink-0">
-                    {item.avatarInitials}
-                  </div>
+                  {item.avatarUrl ? (
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-blue-100 flex-shrink-0">
+                      <Image
+                        src={item.avatarUrl}
+                        alt={`${item.name} profile portrait`}
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-12 h-12 rounded-full bg-blue-100 text-universal font-extrabold flex items-center justify-center text-sm flex-shrink-0">
+                      {item.avatarInitials}
+                    </div>
+                  )}
                   <div>
                     <h4 className="text-sm font-bold text-gray-900 leading-tight">
                       {item.name}

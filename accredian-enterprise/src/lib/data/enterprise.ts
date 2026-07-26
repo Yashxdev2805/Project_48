@@ -61,16 +61,76 @@ export const enterpriseData: EnterpriseData = {
   ],
 
   clients: [
-    { id: "c1", name: "Google", category: "Technology" },
-    { id: "c2", name: "Microsoft", category: "Technology" },
-    { id: "c3", name: "Amazon", category: "E-Commerce & Cloud" },
-    { id: "c4", name: "Flipkart", category: "E-Commerce" },
-    { id: "c5", name: "Paytm", category: "Fintech" },
-    { id: "c6", name: "Swiggy", category: "Foodtech" },
-    { id: "c7", name: "Deloitte", category: "Consulting" },
-    { id: "c8", name: "Accenture", category: "Services" },
-    { id: "c9", name: "Capgemini", category: "Services" },
-    { id: "c10", name: "Razorpay", category: "Fintech" },
+    {
+      id: "c1",
+      name: "Google",
+      category: "Technology",
+      logoUrl: "/images/logo_google.png",
+      officialUrl: process.env.NEXT_PUBLIC_GOOGLE_URL || "https://about.google/",
+    },
+    {
+      id: "c2",
+      name: "Microsoft",
+      category: "Technology",
+      logoUrl: "/images/logo_microsoft.png",
+      officialUrl: process.env.NEXT_PUBLIC_MICROSOFT_URL || "https://www.microsoft.com/",
+    },
+    {
+      id: "c3",
+      name: "Amazon",
+      category: "E-Commerce & Cloud",
+      logoUrl: "/images/logo_amazon.png",
+      officialUrl: process.env.NEXT_PUBLIC_AMAZON_URL || "https://www.aboutamazon.com/",
+    },
+    {
+      id: "c4",
+      name: "Flipkart",
+      category: "E-Commerce",
+      logoUrl: "/images/logo_flipkart.svg",
+      officialUrl: process.env.NEXT_PUBLIC_FLIPKART_URL || "https://www.flipkart.com/",
+    },
+    {
+      id: "c5",
+      name: "Paytm",
+      category: "Fintech",
+      logoUrl: "/images/logo_paytm.svg",
+      officialUrl: process.env.NEXT_PUBLIC_PAYTM_URL || "https://paytm.com/",
+    },
+    {
+      id: "c6",
+      name: "Swiggy",
+      category: "Foodtech",
+      logoUrl: "/images/logo_swiggy.svg",
+      officialUrl: process.env.NEXT_PUBLIC_SWIGGY_URL || "https://www.swiggy.com/",
+    },
+    {
+      id: "c7",
+      name: "Deloitte",
+      category: "Consulting",
+      logoUrl: "/images/logo_deloitte.png",
+      officialUrl: process.env.NEXT_PUBLIC_DELOITTE_URL || "https://www2.deloitte.com/",
+    },
+    {
+      id: "c8",
+      name: "Accenture",
+      category: "Services",
+      logoUrl: "/images/logo_accenture.png",
+      officialUrl: process.env.NEXT_PUBLIC_ACCENTURE_URL || "https://www.accenture.com/",
+    },
+    {
+      id: "c9",
+      name: "Capgemini",
+      category: "Services",
+      logoUrl: "/images/logo_capgemini.svg",
+      officialUrl: process.env.NEXT_PUBLIC_CAPGEMINI_URL || "https://www.capgemini.com/",
+    },
+    {
+      id: "c10",
+      name: "Razorpay",
+      category: "Fintech",
+      logoUrl: "/images/logo_razorpay.svg",
+      officialUrl: process.env.NEXT_PUBLIC_RAZORPAY_URL || "https://razorpay.com/",
+    },
   ],
 
   edge: [
@@ -364,6 +424,7 @@ export const enterpriseData: EnterpriseData = {
       review:
         "Accredian's GenAI program transformed how our senior software team approaches AI integration. The customized capstone projects saved us months of R&D.",
       avatarInitials: "RS",
+      avatarUrl: "/images/avatar_rajesh.png",
       rating: 5,
     },
     {
@@ -374,6 +435,7 @@ export const enterpriseData: EnterpriseData = {
       review:
         "The Product Management cohort tailored by Accredian brought unified language and framework consistency across our 40+ product managers. Highly recommended!",
       avatarInitials: "PN",
+      avatarUrl: "/images/avatar_priya.png",
       rating: 5,
     },
     {
@@ -384,6 +446,7 @@ export const enterpriseData: EnterpriseData = {
       review:
         "Accredian delivered an exceptional Executive AI Leadership workshop for our VP cohort. The faculty brought deep domain context and actionable strategic frameworks.",
       avatarInitials: "AV",
+      avatarUrl: "/images/avatar_amitabh.png",
       rating: 5,
     },
   ],

@@ -4,11 +4,12 @@ import React, { memo } from "react";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { enterpriseData } from "@/lib/data/enterprise";
 import { EdgePillar } from "@/lib/types";
 
 // Icon Renderer for Edge Pillars
-const PillarIcon = ({ name }: { name: string }) => {
+const PillarIcon = memo(({ name }: { name: string }) => {
   switch (name) {
     case "TrendingUp":
       return (
@@ -36,7 +37,8 @@ const PillarIcon = ({ name }: { name: string }) => {
         </svg>
       );
   }
-};
+});
+PillarIcon.displayName = "PillarIcon";
 
 export const AccredianEdge = memo(() => {
   const { edge } = enterpriseData;
@@ -52,39 +54,36 @@ export const AccredianEdge = memo(() => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {edge.map((pillar: EdgePillar) => (
-            <Card
-              key={pillar.id}
-              className="flex flex-col justify-between h-full group hover:border-blue-300 transition-all duration-300 bg-white"
-              padding="lg"
-            >
-              <div className="space-y-4">
-                {/* Pillar Icon Header */}
-                <div className="w-12 h-12 rounded-xl bg-blue-50 text-universal flex items-center justify-center group-hover:bg-universal group-hover:text-white transition-colors duration-300">
-                  <PillarIcon name={pillar.icon} />
+          {edge.map((pillar: EdgePillar, idx: number) => (
+            <AnimateOnScroll key={pillar.id} variant="fade-up" delay={idx * 100}>
+              <Card
+                className="flex flex-col justify-between h-full group hover:border-blue-300 transition-all duration-300 bg-white"
+                padding="lg"
+              >
+                <div className="space-y-4">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-universal flex items-center justify-center group-hover:bg-universal group-hover:text-white transition-colors duration-300">
+                    <PillarIcon name={pillar.icon} />
+                  </div>
+
+                  <h3 className="text-lg font-bold text-gray-900 leading-snug group-hover:text-universal transition-colors">
+                    {pillar.title}
+                  </h3>
+
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </div>
 
-                {/* Pillar Title */}
-                <h3 className="text-lg font-bold text-gray-900 leading-snug group-hover:text-universal transition-colors">
-                  {pillar.title}
-                </h3>
-
-                {/* Pillar Description */}
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
-
-              {/* Metric Tag Badge */}
-              {pillar.metric && (
-                <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                  <span className="text-xs font-semibold text-gray-700">
-                    {pillar.metric}
-                  </span>
-                </div>
-              )}
-            </Card>
+                {pillar.metric && (
+                  <div className="mt-6 pt-4 border-t border-gray-100 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                    <span className="text-xs font-semibold text-gray-700">
+                      {pillar.metric}
+                    </span>
+                  </div>
+                )}
+              </Card>
+            </AnimateOnScroll>
           ))}
         </div>
       </Container>

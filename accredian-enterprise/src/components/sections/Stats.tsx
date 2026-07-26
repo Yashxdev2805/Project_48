@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, memo } from "react";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { enterpriseData } from "@/lib/data/enterprise";
 import { StatItem } from "@/lib/types";
 
@@ -32,8 +33,6 @@ const CountUpNumber: React.FC<CountUpNumberProps> = memo(({ endValue, duration =
           const animateCount = (timestamp: number) => {
             if (!startTime) startTime = timestamp;
             const progress = Math.min((timestamp - startTime) / duration, 1);
-
-            // Ease-out quad formula
             const easedProgress = 1 - (1 - progress) * (1 - progress);
             const currentCount = Math.floor(easedProgress * endValue);
 
@@ -83,29 +82,27 @@ export const Stats = memo(() => {
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
-          {stats.map((stat: StatItem) => (
-            <Card
-              key={stat.id}
-              className="text-center transition-all duration-300 hover:border-blue-300 hover:shadow-lg bg-white"
-              padding="lg"
-            >
-              {/* Stat Metric Number */}
-              <div className="text-4xl sm:text-5xl font-extrabold text-universal tracking-tight flex items-center justify-center">
-                {stat.prefix && <span>{stat.prefix}</span>}
-                <CountUpNumber endValue={stat.value} />
-                {stat.suffix && <span>{stat.suffix}</span>}
-              </div>
+          {stats.map((stat: StatItem, idx: number) => (
+            <AnimateOnScroll key={stat.id} variant="fade-up" delay={idx * 120}>
+              <Card
+                className="text-center transition-all duration-300 hover:border-blue-300 hover:shadow-lg bg-white"
+                padding="lg"
+              >
+                <div className="text-4xl sm:text-5xl font-extrabold text-universal tracking-tight flex items-center justify-center">
+                  {stat.prefix && <span>{stat.prefix}</span>}
+                  <CountUpNumber endValue={stat.value} />
+                  {stat.suffix && <span>{stat.suffix}</span>}
+                </div>
 
-              {/* Stat Title Label */}
-              <h3 className="text-base sm:text-lg font-bold text-gray-900 mt-3 mb-2">
-                {stat.label}
-              </h3>
+                <h3 className="text-base sm:text-lg font-bold text-gray-900 mt-3 mb-2">
+                  {stat.label}
+                </h3>
 
-              {/* Stat Description */}
-              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
-                {stat.description}
-              </p>
-            </Card>
+                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                  {stat.description}
+                </p>
+              </Card>
+            </AnimateOnScroll>
           ))}
         </div>
       </Container>

@@ -5,6 +5,7 @@ import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { enterpriseData } from "@/lib/data/enterprise";
 import { DomainCard } from "@/lib/types";
 
@@ -83,71 +84,72 @@ export const DomainExpertise = memo(() => {
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {domains.map((domain: DomainCard) => (
-            <Card
-              key={domain.id}
-              className="flex flex-col justify-between h-full bg-white relative hover:border-blue-300 transition-all duration-300 group"
-              padding="lg"
-            >
-              {/* Popular Badge */}
-              {domain.popular && (
-                <span className="absolute top-4 right-4 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-universal bg-blue-50 border border-blue-200 rounded-full">
-                  High Demand
-                </span>
-              )}
-
-              <div className="space-y-4">
-                {/* Domain Icon & Header */}
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-universal flex items-center justify-center group-hover:bg-universal group-hover:text-white transition-colors duration-300">
-                    <DomainIcon name={domain.icon} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-universal transition-colors">
-                      {domain.title}
-                    </h3>
-                    <p className="text-xs font-semibold text-gray-500">
-                      {domain.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Domain Description */}
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {domain.description}
-                </p>
-
-                {/* Skills Chips */}
-                <div className="pt-2">
-                  <span className="text-xs font-semibold text-gray-700 block mb-2">
-                    Key Competencies:
+          {domains.map((domain: DomainCard, idx: number) => (
+            <AnimateOnScroll key={domain.id} variant="fade-up" delay={idx * 80}>
+              <Card
+                className="flex flex-col justify-between h-full bg-white relative hover:border-blue-300 transition-all duration-300 group"
+                padding="lg"
+              >
+                {/* Popular Badge */}
+                {domain.popular && (
+                  <span className="absolute top-4 right-4 px-2.5 py-0.5 text-xs font-bold uppercase tracking-wider text-universal bg-blue-50 border border-blue-200 rounded-full">
+                    High Demand
                   </span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {domain.skills.map((skill, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-md border border-gray-200/60"
-                      >
-                        {skill}
-                      </span>
-                    ))}
+                )}
+
+                <div className="space-y-4">
+                  {/* Domain Icon & Header */}
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-universal flex items-center justify-center group-hover:bg-universal group-hover:text-white transition-colors duration-300">
+                      <DomainIcon name={domain.icon} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900 group-hover:text-universal transition-colors">
+                        {domain.title}
+                      </h3>
+                      <p className="text-xs font-semibold text-gray-500">
+                        {domain.subtitle}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Domain Description */}
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {domain.description}
+                  </p>
+
+                  {/* Skills Chips */}
+                  <div className="pt-2">
+                    <span className="text-xs font-semibold text-gray-700 block mb-2">
+                      Key Competencies:
+                    </span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {domain.skills.map((skill, skillIdx) => (
+                        <span
+                          key={skillIdx}
+                          className="px-2.5 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-md border border-gray-200/60"
+                        >
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Card Footer CTA Link */}
-              <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
-                <span className="text-xs text-gray-500 font-medium">Custom Cohorts Available</span>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  href="#contact"
-                  onClick={(e) => handleCtaClick(e, "#contact")}
-                >
-                  Enquire
-                </Button>
-              </div>
-            </Card>
+                {/* Card Footer CTA Link */}
+                <div className="mt-6 pt-4 border-t border-gray-100 flex items-center justify-between">
+                  <span className="text-xs text-gray-500 font-medium">Custom Cohorts Available</span>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    href="#contact"
+                    onClick={(e) => handleCtaClick(e, "#contact")}
+                  >
+                    Enquire
+                  </Button>
+                </div>
+              </Card>
+            </AnimateOnScroll>
           ))}
         </div>
       </Container>

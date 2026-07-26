@@ -27,6 +27,8 @@ export interface ClientLogo {
   id: string;
   name: string;
   category: string;
+  logoUrl?: string;
+  officialUrl?: string;
 }
 
 export interface EdgePillar {
@@ -91,6 +93,7 @@ export interface Testimonial {
   company: string;
   review: string;
   avatarInitials: string;
+  avatarUrl?: string;
   rating: number;
 }
 

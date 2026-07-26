@@ -1,6 +1,7 @@
 "use client";
 
 import React, { memo } from "react";
+import Image from "next/image";
 import { Container } from "@/components/shared/Container";
 import { Button } from "@/components/ui/Button";
 import { enterpriseData } from "@/lib/data/enterprise";
@@ -99,82 +100,60 @@ export const Hero = memo(() => {
             </div>
           </div>
 
-          {/* Right Column: Visual Dashboard Feature Card */}
-          <div className="lg:col-span-5 relative">
-            <div className="relative mx-auto max-w-md lg:max-w-none">
-              {/* Outer Glow Card */}
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-blue-500 to-indigo-600 opacity-20 blur-xl transition duration-500 group-hover:opacity-100" />
+          {/* Right Column: High-Impact Visual Graphic & Dashboard Feature Card */}
+          <div className="lg:col-span-5 relative space-y-6">
+            {/* Visual Hero Illustration Image */}
+            <div className="relative mx-auto rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-white">
+              <Image
+                src="/images/hero_illustration.png"
+                alt="Accredian Enterprise Learning & AI Upskilling Dashboard Illustration"
+                width={600}
+                height={400}
+                priority
+                className="w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-500"
+              />
+            </div>
 
-              <div className="relative rounded-2xl bg-white p-6 sm:p-8 shadow-2xl border border-gray-100 space-y-6">
-                {/* Visual Card Header */}
-                <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-universal font-extrabold flex items-center justify-center text-lg">
-                      AE
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-sm sm:text-base">
-                        Enterprise Learning Hub
-                      </h3>
-                      <p className="text-xs text-gray-500">Live Cohort Competency Index</p>
-                    </div>
+            {/* Enterprise Dashboard Card Overlay */}
+            <div className="relative rounded-2xl bg-white p-6 shadow-xl border border-gray-100 space-y-4">
+              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-blue-50 text-universal font-extrabold flex items-center justify-center text-base">
+                    AE
                   </div>
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
-                    Active Cohort
-                  </span>
+                  <div>
+                    <h3 className="font-bold text-gray-900 text-xs sm:text-sm">
+                      Enterprise Competency Index
+                    </h3>
+                    <p className="text-[11px] text-gray-500">Live Workforce Upskilling Analytics</p>
+                  </div>
                 </div>
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                  Active Cohorts
+                </span>
+              </div>
 
-                {/* Dashboard Metrics Stack */}
-                <div className="space-y-4">
-                  <div className="bg-gray-50 rounded-xl p-4 border border-gray-100 flex justify-between items-center">
-                    <div>
-                      <span className="text-xs text-gray-500 font-medium">GenAI Proficiency Score</span>
-                      <div className="text-xl font-extrabold text-gray-900 mt-0.5">94.8 / 100</div>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">+28.4% YoY</span>
-                    </div>
+              {/* Progress Bars */}
+              <div className="space-y-2.5">
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
+                    <span>GenAI & LLM Architecture</span>
+                    <span>94% Mastery</span>
                   </div>
-
-                  {/* Competency Progress Bars */}
-                  <div className="space-y-3">
-                    <div>
-                      <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
-                        <span>Product Management & Strategy</span>
-                        <span>92% Mastery</span>
-                      </div>
-                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-universal rounded-full w-[92%]" />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
-                        <span>LLM & RAG Engineering</span>
-                        <span>88% Mastery</span>
-                      </div>
-                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-indigo-600 rounded-full w-[88%]" />
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
-                        <span>Data Analytics & BI</span>
-                        <span>95% Mastery</span>
-                      </div>
-                      <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
-                        <div className="h-full bg-emerald-500 rounded-full w-[95%]" />
-                      </div>
-                    </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-universal rounded-full w-[94%]" />
                   </div>
                 </div>
 
-                {/* Card Footer Badge */}
-                <div className="pt-2 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
-                  <span>Updated in real-time</span>
-                  <span className="font-semibold text-universal">Explore Dashboard →</span>
+                <div>
+                  <div className="flex justify-between text-xs font-semibold text-gray-700 mb-1">
+                    <span>Product Management Strategy</span>
+                    <span>91% Mastery</span>
+                  </div>
+                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-indigo-600 rounded-full w-[91%]" />
+                  </div>
                 </div>
               </div>
             </div>
