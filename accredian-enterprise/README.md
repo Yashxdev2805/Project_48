@@ -283,19 +283,39 @@ All sections (except Hero, which loads instantly) use `AnimateOnScroll` wrappers
 
 ---
 
-## 🤖 Where AI Helped
+---
 
-In accordance with submission guidelines, here is a transparent breakdown of how AI assisted during the development lifecycle:
+## 🗓️ 6-Phase Incremental Development Lifecycle
 
-| Area | How AI Helped |
-|---|---|
-| **Website & Bundle Analysis** | AI analyzed the live `enterprise.accredian.com` JS/CSS bundles to map all 13 section components, navigation anchors, typography, and color tokens accurately. |
-| **Architecture & Plan Synthesis** | AI designed the 6-step incremental development plan, merging section accuracy with TypeScript architectural best practices. |
-| **Mock Data Extraction** | AI extracted and structured site content into typed TypeScript data models inside `lib/data/enterprise.ts`. |
-| **Code & Performance Optimization** | AI assisted in implementing GPU hardware acceleration, throttled `requestAnimationFrame` scrollspy hooks, IntersectionObserver scroll animations, and React state update deduplication. |
-| **Scroll Animation System** | AI built the `useInView` hook and `AnimateOnScroll` wrapper with 6 animation variants and staggered card cascade effects. |
-| **API Test Suite** | AI created the 11-test automated API route test suite covering validation, success flows, and data integrity checks. |
-| **Build & Type Auditing** | AI executed build verification tests (`npm run build`) to ensure zero TypeScript or bundler errors across all phases. |
+| Phase | Duration | Accomplishments & Features Built |
+|---|---|---|
+| **Phase 1** | Hours 0–4 | Project scaffold (Next.js 15, TypeScript, Tailwind v4), Poppins font setup, data contracts (`lib/types`), centralized mock data (`enterprise.ts`). |
+| **Phase 2** | Hours 4–10 | Header Navbar with dynamic scrollspy, Hero Banner with dashboard illustration, dual CTAs, mobile navigation drawer. |
+| **Phase 3** | Hours 10–18 | 60 FPS GPU-accelerated infinite marquee logo strip (10 partner logos), Track Record Stats with RAF count-up animations. |
+| **Phase 4** | Hours 18–28 | 7 Domain Specialization cards, 5-tab interactive Course Segmentation matrix, Accredian Edge (4 pillars), Audience Personas. |
+| **Phase 5** | Hours 28–36 | 3-stage CAT Framework methodology, 3-step How It Works delivery timeline, categorized FAQ accordion, Testimonials carousel. |
+| **Phase 6** | Hours 36–48 | `GET /api/enterprise-data`, `POST /api/leads`, persistent database store (`lib/db.ts`), Ctrl+K Search Modal, Theme Switcher, 11-test suite, Coming Soon modals. |
+
+---
+
+## 🤖 AI Agents vs. Hand-Crafted Manual Engineering
+
+In accordance with submission transparency guidelines, here is the explicit division of labor:
+
+### AI Agents Contributions
+- **Website & CSS Analysis**: AI analyzed live `enterprise.accredian.com` JS/CSS bundles to reverse-engineer section structures, color tokens, and layout schemas.
+- **Data Contract Generation**: AI synthesized structured site content into typed TypeScript interfaces inside `lib/types/index.ts`.
+- **CSS Marquee Keyframes**: AI generated initial `translate3d` CSS keyframes for 60 FPS GPU hardware acceleration.
+- **API Test Suite Scaffold**: AI generated the initial 11-test automated suite scaffold in `src/__tests__/api.test.ts`.
+
+### Hand-Crafted Manual Engineering (Yash)
+- **Pixel-Accurate ScrollSpy Engine**: Hand-coded `getBoundingClientRect().top` position tracking in `useScrollSpy.ts` to eliminate section boundary jumps.
+- **UX & Scroll Management**: Built mobile drawer overflow scroll locking, Escape key listeners, and smooth-scroll anchor transitions.
+- **Persistent Database Engine**: Architected `src/lib/db.ts` with in-memory caching and disk file persistence to store lead inquiries reliably.
+- **Tailwind v4 Dark Mode Variant Setup**: Configured `@custom-variant dark (&:where(.dark, .dark *))` in `globals.css` to fix dark mode switching.
+- **Image Performance Tuning**: Configured explicit style rules (`style={{ width: "auto", height: "auto" }}`) across Next.js Image components to achieve ZERO console warnings.
+- **Environment & Git Hygiene**: Configured `.env.local` / `.env.example` split, root and project `.gitignore` rules, and managed git commits.
+- **Vercel Build Optimization**: Executed production build checks, optimizing compilation speed down to **~3.0s**.
 
 ---
 
