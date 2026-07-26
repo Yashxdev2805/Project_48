@@ -14,21 +14,30 @@
 /build
 .turbo/
 *.tsbuildinfo
-next-env.d.ts
 
-# Logs
+# Database Files (Local Testing Store)
+/data/*.json
+/data/*.db
+/data/*.sqlite
+!/data/.gitkeep
+
+# Logs & Temporary Files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 *.log
+*.tmp
 
-# Environment Variables
+# Environment Variables (Ignore local secrets, keep example template)
 .env
-.env*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 !.env.example
 
-# Vercel Deployment Settings
+# Vercel Deployment & Build Settings
 .vercel
 
 # Testing & Coverage

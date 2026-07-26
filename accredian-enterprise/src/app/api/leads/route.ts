@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import { LeadPayload } from "@/lib/types";
-
-// In-memory leads storage array for demonstration
-const leadsDb: Array<LeadPayload & { id: string; createdAt: string }> = [];
+import { saveLead, getLeads, getLeadCount } from "@/lib/db";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -18,7 +16,7 @@ export async function POST(request: Request) {
     }
 
     const body: LeadPayload = await request.json();
-    const { name, email, phone, company, designation, teamSize, message } = body || {};
+    const { name, email, phone, company } = body || {};
 
     // Server-side validation
     if (!name || typeof name !== "string" || name.trim().length < 2) {
@@ -49,26 +47,15 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create lead record with sanitized values
-    const newLead = {
-      id: `lead_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
-      name: name.trim().slice(0, 100),
-      email: email.trim().toLowerCase().slice(0, 100),
-      phone: phone.trim().slice(0, 30),
-      company: company.trim().slice(0, 100),
-      designation: designation ? String(designation).trim().slice(0, 100) : "",
-      teamSize: teamSize ? String(teamSize).trim().slice(0, 50) : "",
-      message: message ? String(message).trim().slice(0, 1000) : "",
-      createdAt: new Date().toISOString(),
-    };
-
-    leadsDb.push(newLead);
+    // Save lead record into persistent database
+    const savedRecord = saveLead(body);
 
     return NextResponse.json(
       {
         success: true,
         message: "Enquiry submitted successfully! Our enterprise consultant will get in touch shortly.",
-        leadId: newLead.id,
+        leadId: savedRecord.id,
+        storedAt: savedRecord.createdAt,
       },
       { status: 201 }
     );
@@ -82,9 +69,13 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
+  const totalLeads = getLeadCount();
+  const recentLeads = getLeads().slice(0, 10); // Return top 10 most recent leads for inspection in testing phase
+
   return NextResponse.json({
     success: true,
-    totalLeads: leadsDb.length,
-    message: "Lead storage system operational.",
+    totalLeads,
+    databaseStatus: "Operational (Persistent JSON DB)",
+    recentInquiries: recentLeads,
   });
 }

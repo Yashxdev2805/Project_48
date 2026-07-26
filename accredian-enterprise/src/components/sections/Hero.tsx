@@ -5,9 +5,11 @@ import Image from "next/image";
 import { Container } from "@/components/shared/Container";
 import { Button } from "@/components/ui/Button";
 import { enterpriseData } from "@/lib/data/enterprise";
+import { useComingSoon } from "@/components/ui/ComingSoonModal";
 
 export const Hero = memo(() => {
   const { hero } = enterpriseData;
+  const { triggerComingSoon } = useComingSoon();
 
   const handleCtaClick = (e: React.MouseEvent<HTMLElement>, href: string) => {
     e.preventDefault();
@@ -87,6 +89,21 @@ export const Hero = memo(() => {
               >
                 {hero.secondaryCtaText}
               </Button>
+              <button
+                type="button"
+                onClick={() =>
+                  triggerComingSoon(
+                    "Download Enterprise Brochure (PDF)",
+                    "Direct PDF brochure download & custom curriculum matrix export requires production SSO authentication. Contact our team via the enquiry form for immediate PDF delivery."
+                  )
+                }
+                className="px-4 py-3 text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm transition-all flex items-center gap-2 group"
+              >
+                <span>Download Brochure</span>
+                <span className="px-1.5 py-0.5 text-[10px] font-bold text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/60 rounded border border-amber-200 dark:border-amber-700">
+                  Coming Soon
+                </span>
+              </button>
             </div>
 
             {/* Trust Micro-Badge */}
@@ -109,7 +126,7 @@ export const Hero = memo(() => {
                 alt="Accredian Enterprise Learning & AI Upskilling Dashboard Illustration"
                 width={600}
                 height={400}
-                priority
+                style={{ width: "100%", height: "auto" }}
                 className="w-full h-auto object-cover transform hover:scale-[1.02] transition-transform duration-500"
               />
             </div>

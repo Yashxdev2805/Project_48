@@ -1,9 +1,13 @@
+"use client";
+
 import React, { memo } from "react";
 import { Container } from "@/components/shared/Container";
 import { enterpriseData } from "@/lib/data/enterprise";
+import { useComingSoon } from "@/components/ui/ComingSoonModal";
 
 export const Footer = memo(() => {
   const { contact } = enterpriseData;
+  const { triggerComingSoon } = useComingSoon();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -22,6 +26,35 @@ export const Footer = memo(() => {
               Empowering organizations to build future-ready workforces with customized
               learning programs in Product Management, Generative AI, Data Science, and Executive Leadership.
             </p>
+            <div className="pt-2 flex flex-wrap gap-2 items-center">
+              <button
+                type="button"
+                onClick={() =>
+                  triggerComingSoon(
+                    "Enterprise Single Sign-On (SSO / SAML)",
+                    "Okta, Microsoft Entra ID, and Google Workspace SAML 2.0 integration requires production deployment credentials."
+                  )
+                }
+                className="px-2.5 py-1 text-[11px] font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-md border border-gray-700 transition-colors flex items-center gap-1.5"
+              >
+                <span>🔑 SSO Login</span>
+                <span className="text-[9px] text-amber-400 font-bold">Soon</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  triggerComingSoon(
+                    "SOC-2 & ISO 27001 Security Audit",
+                    "Security compliance documentation & SOC-2 Type II audit packages will be accessible in the production enterprise portal."
+                  )
+                }
+                className="px-2.5 py-1 text-[11px] font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 rounded-md border border-gray-700 transition-colors flex items-center gap-1.5"
+              >
+                <span>🛡️ Security Audit</span>
+                <span className="text-[9px] text-amber-400 font-bold">Soon</span>
+              </button>
+            </div>
             <div className="pt-2 text-xs text-gray-500">
               © {currentYear} Accredian Enterprise. All rights reserved.
             </div>

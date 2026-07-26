@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
+import { ComingSoonProvider } from "@/components/ui/ComingSoonModal";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -36,8 +38,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${poppins.variable} h-full scroll-smooth antialiased`}>
-      <body className="min-h-full flex flex-col font-sans bg-white text-gray-900 selection:bg-blue-100 selection:text-blue-700">
-        {children}
+      <body className="min-h-full flex flex-col font-sans bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 selection:bg-blue-100 selection:text-blue-700 dark:selection:bg-blue-900 dark:selection:text-blue-200">
+        <ThemeProvider>
+          <ComingSoonProvider>{children}</ComingSoonProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

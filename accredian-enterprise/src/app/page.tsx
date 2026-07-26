@@ -16,10 +16,12 @@ import { FAQ } from "@/components/sections/FAQ";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { ContactCTA } from "@/components/sections/ContactCTA";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { BackToTop } from "@/components/ui/BackToTop";
+import { SearchModal } from "@/components/ui/SearchModal";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
       <Navbar />
 
       <main className="flex-1 pt-16 sm:pt-20">
@@ -72,6 +74,12 @@ export default function Home() {
       </main>
 
       <Footer />
+
+      {/* Floating Back-to-Top Button */}
+      <BackToTop />
+
+      {/* Global Search Palette Modal (Ctrl+K) */}
+      <SearchModal />
     </div>
   );
 }

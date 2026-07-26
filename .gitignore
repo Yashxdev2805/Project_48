@@ -1,0 +1,24 @@
+# Dependencies & Build
+node_modules/
+.next/
+out/
+build/
+.turbo/
+
+# Database Files
+accredian-enterprise/data/*.json
+accredian-enterprise/data/*.db
+!accredian-enterprise/data/.gitkeep
+
+# Environment Files
+.env
+.env.local
+.env*.local
+!.env.example
+
+# Logs & Temp
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+.vercel/

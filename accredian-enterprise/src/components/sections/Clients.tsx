@@ -11,7 +11,7 @@ const MARQUEE_CLIENTS = [...enterpriseData.clients, ...enterpriseData.clients];
 
 export const Clients = memo(() => {
   return (
-    <section id="clients" className="py-16 sm:py-20 bg-white overflow-hidden border-b border-gray-100">
+    <section id="clients" className="py-16 sm:py-20 bg-white dark:bg-gray-900 overflow-hidden border-b border-gray-100 dark:border-gray-800">
       <Container>
         <SectionHeading
           badge="Proven Partnerships"
@@ -24,8 +24,8 @@ export const Clients = memo(() => {
       {/* Full-width Infinite Marquee Strip */}
       <div className="relative w-full overflow-hidden py-4">
         {/* Left & Right Gradient Fades for Smooth Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white dark:from-gray-900 to-transparent z-10 pointer-events-none" />
 
         <div className="animate-marquee flex gap-6 sm:gap-8 items-center">
           {MARQUEE_CLIENTS.map((client, idx) => {
@@ -38,19 +38,19 @@ export const Clients = memo(() => {
                       alt={`${client.name} partner logo`}
                       width={112}
                       height={40}
-                      style={{ width: "auto", height: "auto" }}
-                      className="object-contain max-h-10"
+                      style={{ width: "auto", height: "auto", maxHeight: "40px" }}
+                      className="object-contain"
                     />
                   </div>
                 ) : (
-                  <span className="font-extrabold text-gray-700 text-lg sm:text-xl tracking-tight group-hover:text-universal transition-colors">
+                  <span className="font-extrabold text-gray-700 dark:text-gray-200 text-lg sm:text-xl tracking-tight group-hover:text-universal transition-colors">
                     {client.name}
                   </span>
                 )}
-                <span className="text-[10px] sm:text-xs font-semibold text-gray-500 uppercase tracking-wider mt-1 group-hover:text-blue-600">
+                <span className="text-[10px] sm:text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-1 group-hover:text-blue-600 dark:group-hover:text-blue-400">
                   {client.category}
                 </span>
-                <span className="text-[9px] text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity mt-0.5 font-medium">
+                <span className="text-[9px] text-gray-400 dark:text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity mt-0.5 font-medium">
                   Visit Site ↗
                 </span>
               </>
@@ -64,7 +64,7 @@ export const Clients = memo(() => {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={`Visit official ${client.name} website`}
-                  className="flex-shrink-0 flex flex-col items-center justify-center px-6 py-4 rounded-xl bg-gray-50/80 border border-gray-200/80 min-w-[160px] sm:min-w-[190px] hover:border-blue-300 hover:bg-blue-50/40 hover:shadow-md transition-all duration-300 group cursor-pointer"
+                  className="flex-shrink-0 flex flex-col items-center justify-center px-6 py-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 min-w-[160px] sm:min-w-[190px] hover:border-blue-300 dark:hover:border-blue-500 hover:bg-blue-50/40 dark:hover:bg-blue-950/40 hover:shadow-md transition-all duration-300 group cursor-pointer"
                 >
                   {cardContent}
                 </a>
@@ -74,7 +74,7 @@ export const Clients = memo(() => {
             return (
               <div
                 key={`${client.id}-${idx}`}
-                className="flex-shrink-0 flex flex-col items-center justify-center px-6 py-4 rounded-xl bg-gray-50/80 border border-gray-200/80 min-w-[160px] sm:min-w-[190px] hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-300 group cursor-pointer"
+                className="flex-shrink-0 flex flex-col items-center justify-center px-6 py-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/80 border border-gray-200/80 dark:border-gray-700/80 min-w-[160px] sm:min-w-[190px] hover:border-blue-300 dark:hover:border-blue-500 hover:bg-blue-50/30 dark:hover:bg-blue-950/30 transition-all duration-300 group cursor-pointer"
               >
                 {cardContent}
               </div>
