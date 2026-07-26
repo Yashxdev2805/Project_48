@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -18,14 +16,20 @@ import { ContactCTA } from "@/components/sections/ContactCTA";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { BackToTop } from "@/components/ui/BackToTop";
 import { SearchModal } from "@/components/ui/SearchModal";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-300">
+      {/* Schema.org JSON-LD Structured Data Injection (SSR & Google Rich Snippets) */}
+      <JsonLd />
+
+      {/* Sticky Top Navigation Bar */}
       <Navbar />
 
-      <main className="flex-1 pt-16 sm:pt-20">
-        {/* Hero — instant load, no scroll animation needed */}
+      {/* Main Page Landmark */}
+      <main id="main-content" className="flex-1 pt-16 sm:pt-20">
+        {/* Hero Banner — instant SSR load */}
         <Hero />
 
         <AnimateOnScroll variant="fade-up">
@@ -73,6 +77,7 @@ export default function Home() {
         </AnimateOnScroll>
       </main>
 
+      {/* Footer Landmark */}
       <Footer />
 
       {/* Floating Back-to-Top Button */}
